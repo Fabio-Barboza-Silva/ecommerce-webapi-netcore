@@ -14,6 +14,30 @@ app.MapGet("/produtos", () =>
     }
 });
 
+app.MapGet("/produtos/estoque-baixo", () =>
+{
+    using (EcommerceContext banco = new EcommerceContext())
+    {
+        var produtosCriticos = banco.Produtos
+                                    .Where(p => p.Estoque < 5)           
+                                    .OrderBy(p => p.Price)
+                                    .ToList();
+        return produtosCriticos;
+    }
+});
+
+app.MapGet("/produtos/financeiro-critico", () =>
+{
+    using (EcommerceContext banco =new EcommerceContext())
+    {
+        decimal totalImobilizado = banco.Produtos
+                                        .Where(p => p.Estoque < 5)
+                                        .Sum(p => p.Price * p.Estoque);
+        return $"Valor total imobilizado em estoque critico: R${totalImobilizado:F2}";
+    }                                   
+                                         
+});
+
 app.MapPost("/produtos", (Produto novoProduto) =>
 {
     using (EcommerceContext banco = new EcommerceContext())

@@ -3,9 +3,9 @@ POST https://localhost:57878/produtos
 Content-Type: application/json
 
 {
-  "name": "Teclado Mecanico RGB",
-  "price": 250.00,
-  "estoque": 15
+  "name": "Mouse Optico USB",
+  "price": 50.00,
+  "estoque": 2
 }
 
 ###
@@ -21,3 +21,11 @@ Content-Type: application/json
   "produtoId":1,
   "quantidade":1
 }
+
+###
+
+GET https://localhost:57878/produtos/estoque-baixo
+
+###
+
+GET https://localhost:57878/produtos/financeiro-critico
