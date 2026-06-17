@@ -1,0 +1,23 @@
+# For more info on HTTP files go to https://aka.ms/vs/httpfile
+POST https://localhost:57878/produtos
+Content-Type: application/json
+
+{
+  "name": "Teclado Mecanico RGB",
+  "price": 250.00,
+  "estoque": 15
+}
+
+###
+
+GET https://localhost:57878/produtos
+
+###
+
+POST https://localhost:57878/vendas
+Content-Type: application/json
+
+{
+  "produtoId":1,
+  "quantidade":1
+}
