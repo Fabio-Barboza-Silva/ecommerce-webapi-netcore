@@ -1,10 +1,11 @@
 ﻿
 using ConsoleApp1.Data;
 using ConsoleApp1.Models;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<EcommerceContext>();
+builder.Services.AddDbContext<EcommerceContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app     = builder.Build();
 
