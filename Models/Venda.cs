@@ -15,6 +15,9 @@ namespace ConsoleApp1.Models
 
         public DateTime DataVenda { get; set; }
 
+        public virtual Produto Produto { get; set; } = null!;
+        public virtual Cliente Cliente { get; set; } = null!;
+
         public void EfetivarVenda(Produto produto, int quantidadeDesejada)
         {
             if (produto.Estoque < quantidadeDesejada)

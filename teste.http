@@ -3,9 +3,9 @@ POST https://localhost:57878/produtos
 Content-Type: application/json
 
 {
-  "name": "Mouse Optico USB",
-  "price": 50.00,
-  "estoque": 2
+  "nome": "Caderno de Análise de Dados",
+  "price": 25.50,
+  "estoque": 50
 }
 
 ###
@@ -29,3 +29,11 @@ GET https://localhost:57878/produtos/estoque-baixo
 ###
 
 GET https://localhost:57878/produtos/financeiro-critico
+
+###
+
+GET https://localhost:57878/vendas/relatorio
+
+###
+
+PUT https://localhost:57878/produtos/atualizar-estoque?produtoId=1&novoEstoque=10

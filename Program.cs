@@ -2,6 +2,7 @@
 using ConsoleApp1.Data;
 using ConsoleApp1.Models;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +31,15 @@ app.MapGet("/produtos/financeiro-critico", (EcommerceContext banco) =>
                                         .Where(p => p.Estoque < 5)
                                         .Sum(p => p.Price * p.Estoque);
         return $"Valor total imobilizado em estoque critico: R${totalImobilizado:F2}";                                         
+});
+
+app.MapGet("/vendas/relatorio", (EcommerceContext banco) =>
+{
+    var relatorioVendas = banco.Vendas
+                               .Include(v => v.Produto)
+                               .Include(v => v.Cliente)
+                               .ToList();
+    return relatorioVendas;
 });
 
 app.MapPost("/produtos", (Produto novoProduto, EcommerceContext banco) =>
@@ -64,6 +74,19 @@ app.MapPost("/vendas", (Venda novaVenda, EcommerceContext banco) =>
         {
             return Results.BadRequest($"Não foi possivel vender: {ex.Message}");
         }    
+});
+
+app.MapPut("/produtos/atualizar-estoque", (int produtoId, int novoEstoque, EcommerceContext banco) =>
+{
+    var produto = banco.Produtos.FirstOrDefault(p => p.Id == produtoId);
+    if (produto == null)
+    {
+        return Results.NotFound("Produto não encontrado!");
+    }
+    produto.Estoque = novoEstoque;
+    banco.SaveChanges();
+    return Results.Ok($"Estoque do produto {produto.Name} atualizado para {novoEstoque} com sucesso!");
+
 });
 
 app.Run();
