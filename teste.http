@@ -10,10 +10,6 @@ Content-Type: application/json
 
 ###
 
-GET https://localhost:57878/produtos
-
-###
-
 POST https://localhost:57878/vendas
 Content-Type: application/json
 
@@ -21,6 +17,10 @@ Content-Type: application/json
   "produtoId":1,
   "quantidade":1
 }
+
+###
+
+GET https://localhost:57878/produtos
 
 ###
 
@@ -33,6 +33,10 @@ GET https://localhost:57878/produtos/financeiro-critico
 ###
 
 GET https://localhost:57878/vendas/relatorio
+
+###
+
+GET https://localhost:57878/vendas/relatorio-enxuto
 
 ###
 

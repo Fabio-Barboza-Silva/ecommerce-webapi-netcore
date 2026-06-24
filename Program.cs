@@ -42,6 +42,26 @@ app.MapGet("/vendas/relatorio", (EcommerceContext banco) =>
     return relatorioVendas;
 });
 
+app.MapGet("/vendas/relatorio-enxuto", (EcommerceContext banco) =>
+{
+    var relatorioEnxuto = banco.Vendas
+        .Include(v => v.Produto )
+        .Include(v => v.Cliente)
+        .AsEnumerable() // Para trazer o valor total com dois numeros decimais junto com o Math.Round
+        .Select(v => new VendaRelatorioDto
+        {
+          VendaId       = v.Id,  
+          NomeCliente   = v.Cliente.Nome,
+          NomeProduto   = v.Produto.Name,
+          PrecoUnitario = v.Produto.Price,
+          Quantidade    = v.Quantidade,
+          ValorTotal    = Math.Round( v.Produto.Price * v.Quantidade, 2),
+          Data          = v.DataVenda
+        })
+        .ToList();
+    return relatorioEnxuto;
+});
+
 app.MapPost("/produtos", (Produto novoProduto, EcommerceContext banco) =>
 {    
         banco.Produtos.Add(novoProduto);
