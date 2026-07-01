@@ -14,7 +14,7 @@ POST https://localhost:57878/vendas
 Content-Type: application/json
 
 {
-  "produtoId":1,
+  "produtoId":3,
   "quantidade":1
 }
 
@@ -37,6 +37,30 @@ GET https://localhost:57878/vendas/relatorio
 ###
 
 GET https://localhost:57878/vendas/relatorio-enxuto
+
+
+### Trazer a pagina 1 ... 3 registros por vez
+GET https://localhost:57878/vendas/relatorio-filtrado?pagina=1&tamanhoPagina=3
+
+
+### Trazer a pagina 2 ... vai pular os 3 primeiros e trazer os proximos
+GET https://localhost:57878/vendas/relatorio-filtrado?pagina=2&tamanhoPagina=3
+
+
+### Filtrar apenas as vendas do cliente Id igual a 1 com 5 registros
+GET https://localhost:57878/vendas/relatorio-filtrado?clienteId=1&tamanhoPagina=5
+
+###
+
+GET https://localhost:57878/vendas/relatorio-avancado?pagina=1&tamanhoPagina=2
+
+###
+
+GET https://localhost:57878/vendas/relatorio-avancado?clienteId=1&dataInicio=2026-06-01&dataFim=2026-06-09&pagina=1&tamanhoPagina=5
+
+###
+
+https://localhost:57878/vendas/relatorio-avancado?termoBusca=mouse&pagina=1&tamanhoPagina=5
 
 ###
 
